@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ابزار هوشمند سایزبندی شورت زنانه</title>
+    <style>
+        :root {
+            --primary: #ff2d75;
+            --secondary: #ff8cb3;
+            --light: #fff9fb;
+            --dark: #4a2a35;
+        }
+        
+        body {
+            font-family: Tahoma, Arial, sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .content {
+            padding: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .result {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .size {
+            font-size: 42px;
+            color: var(--primary);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        
+        th {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .highlight {
+            background: rgba(255, 45, 117, 0.1);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ابزار هوشمند سایزبندی شورت زنانه</h1>
+            <p>تا سایز 3XL با دقت بالا</p>
+        </header>
+        
+        <div class="content">
+            <div class="form-group">
+                <label for="waist">دور کمر (سانتیمتر)</label>
+                <input type="number" id="waist" placeholder="مثال: 76">
+            </div>
+            
+            <div class="form-group">
+                <label for="hips">دور باسن (سانتیمتر)</label>
+                <input type="number" id="hips" placeholder="مثال: 98">
+            </div>
+            
+            <button onclick="calculateSize()">محاسبه سایز</button>
+            
+            <div id="result" class="result">
+                <h3>سایز پیشنهادی:</h3>
+                <div id="sizeResult" class="size"></div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>سایز</th>
+                            <th>کمر (سانتیمتر)</th>
+                            <th>باسن (سانتیمتر)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="sizeXS">
+                            <td>XS</td>
+                            <td>62-66</td>
+                            <td>86-90</td>
+                        </tr>
+                        <tr id="sizeS">
+                            <td>S</td>
+                            <td>66-70</td>
+                            <td>90-94</td>
+                        </tr>
+                        <tr id="sizeM">
+                            <td>M</td>
+                            <td>70-74</td>
+                            <td>94-98</td>
+                        </tr>
+                        <tr id="sizeL">
+                            <td>L</td>
+                            <td>74-78</td>
+                            <td>98-102</td>
+                        </tr>
+                        <tr id="sizeXL">
+                            <td>XL</td>
+                            <td>78-82</td>
+                            <td>102-106</td>
+                        </tr>
+                        <tr id="size2XL">
+                            <td>2XL</td>
+                            <td>82-86</td>
+                            <td>106-110</td>
+                        </tr>
+                        <tr id="size3XL">
+                            <td>3XL</td>
+                            <td>86-90</td>
+                            <td>110-114</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculateSize() {
+            const waist = parseInt(document.getElementById('waist').value);
+            const hips = parseInt(document.getElementById('hips').value);
+            
+            if (isNaN(waist) {
+                alert('لطفاً دور کمر را وارد کنید');
+                return;
+            }
+            
+            if (isNaN(hips)) {
+                alert('لطفاً دور باسن را وارد کنید');
+                return;
+            }
+            
+            let size = '';
+            
+            if (waist <= 66 && hips <= 90) {
+                size = 'XS';
+            } else if (waist <= 70 && hips <= 94) {
+                size = 'S';
+            } else if (waist <= 74 && hips <= 98) {
+                size = 'M';
+            } else if (waist <= 78 && hips <= 102) {
+                size = 'L';
+            } else if (waist <= 82 && hips <= 106) {
+                size = 'XL';
+            } else if (waist <= 86 && hips <= 110) {
+                size = '2XL';
+            } else if (waist <= 90 && hips <= 114) {
+                size = '3XL';
+            } else {
+                size = 'سایز خاص';
+            }
+            
+            document.getElementById('sizeResult').textContent = size;
+            document.getElementById('result').style.display = 'block';
+            
+            // Highlight the row
+            document.querySelectorAll('table tr').forEach(row => {
+                row.classList.remove('highlight');
+            });
+            
+            if (size !== 'سایز خاص') {
+                document.getElementById('size' + size).classList.add('highlight');
+            }
+        }
+    </script>
+</body>
+</html>
