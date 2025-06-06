@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>محاسبه سایز سوتین</title>
+    <style>
+        /* استایل اصلی */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffe6f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+        
+        /* انیمیشن سوتین‌های شناور */
+        .floating-bra {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff99cc22" d="M30,40 Q50,20 70,40 Q80,50 70,60 Q50,80 30,60 Q20,50 30,40 Z"/></svg>') no-repeat;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+            z-index: -1;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* انیمیشن توری */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="%23d6338422" d="M20,50 Q30,10 50,50 Q70,90 90,50 Q110,10 130,50 Q150,90 170,50" stroke="none"/></svg>');
+            animation: laceGrow 15s infinite alternate;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+        @keyframes laceGrow {
+            0% { transform: scale(0.8); }
+            100% { transform: scale(1.2); }
+        }
+        
+        /* ماشین حساب */
+        .calculator {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            z-index: 1;
+        }
+        h1 {
+            color: #d63384;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin: 15px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        button {
+            background: #d63384;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #b52a6f;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: right;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+        }
+        .result p {
+            margin: 10px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- سوتین‌های شناور در پس‌زمینه -->
+    <div class="floating-bra" style="top:20%; left:10%;"></div>
+    <div class="floating-bra" style="top:70%; left:80%;"></div>
+    <div class="floating-bra" style="top:40%; left:60%;"></div>
+
+    <!-- بخش ماشین حساب -->
+    <div class="calculator">
+        <h1>محاسبه سایز سوتین</h1>
+        <div class="input-group">
+            <label for="underbust">زیر سینه (سانتی‌متر)</label>
+            <input type="number" id="underbust" placeholder="مثال: 90">
+        </div>
+        <div class="input-group">
+            <label for="bust">دور سینه (سانتی‌متر)</label>
+            <input type="number" id="bust" placeholder="مثال: 110">
+        </div>
+        <button onclick="calculate()">محاسبه کن</button>
+        <div class="result" id="result">
+            <p>نتایج محاسبه:</p>
+            <p id="output1">-</p>
+            <p id="output2">-</p>
+            <p id="output3">-</p>
+            <p id="output4">-</p>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const underbust = parseInt(document.getElementById("underbust").value);
+            const bust = parseInt(document.getElementById("bust").value);
+            
+            if (!underbust || !bust) {
+                alert("لطفاً هر دو مقدار را وارد کنید!");
+                return;
+            }
+
+            // محاسبات فرضی (بر اساس مثال شما)
+            const result1 = underbust - 5; // نخی/توری ساده
+            const result2 = underbust;      // نخی/توری فنردار
+            const result3 = underbust + 5; // اسفنجی
+            const result4 = underbust + 10; // لیزری/کاپ کوچک
+
+            document.getElementById("output1").innerText = `سایز سوتین نخی یا توری ساده: ${result1}`;
+            document.getElementById("output2").innerText = `سایز سوتین نخی یا توری فنردار: ${result2}`;
+            document.getElementById("output3").innerText = `سایز سوتین اسفنجی: ${result3}`;
+            document.getElementById("output4").innerText = `سایز سوتین لیزری یا کاپ کوچک: ${result4}`;
+        }
+    </script>
+</body>
+</html>
