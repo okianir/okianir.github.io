@@ -3,34 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محاسبه سایز سوتین</title>
+    <title>محاسبه سایز سوتین - okian.ir</title>
     <style>
-        /* استایل اصلی */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(to bottom, #e6f7ff, #cce6ff);
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
         }
         
-        /* انیمیشن حباب‌های کف */
         .bubble {
-            position: fixed;
+            position: absolute;
             background: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             animation: floatBubble linear infinite;
-            z-index: -1;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
             color: #333;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            pointer-events: none;
         }
         
         @keyframes floatBubble {
@@ -46,109 +44,32 @@
             }
         }
         
-        /* ماشین حساب */
         .calculator {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            width: 90%;
             max-width: 400px;
             text-align: center;
             z-index: 1;
-        }
-        h1 {
-            color: #0066cc;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            margin: 15px 0;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-        }
-        input {
-            width: 80%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        button {
-            background: #0066cc;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #0052a3;
-        }
-        .result {
-            margin-top: 20px;
-            text-align: right;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            border: 1px solid #f0f0f0;
-        }
-        .result p {
-            margin: 10px 0;
-            color: #333;
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
-    <!-- حباب‌های کف با متن okian.ir -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const bubbleCount = 20;
-            const body = document.body;
-            
-            for (let i = 0; i < bubbleCount; i++) {
-                const bubble = document.createElement('div');
-                bubble.className = 'bubble';
-                
-                // اندازه و موقعیت تصادفی
-                const size = Math.random() * 40 + 20;
-                bubble.style.width = `${size}px`;
-                bubble.style.height = `${size}px`;
-                bubble.style.left = `${Math.random() * 100}%`;
-                bubble.style.bottom = `-${size}px`;
-                
-                // برخی حباب‌ها حاوی متن okian.ir باشند
-                if (Math.random() > 0.7) {
-                    bubble.innerText = "okian.ir";
-                    bubble.style.fontSize = `${size / 5}px`;
-                }
-                
-                // مدت زمان انیمیشن تصادفی
-                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                bubble.style.animationDelay = `${Math.random() * 5}s`;
-                
-                body.appendChild(bubble);
-            }
-        });
-    </script>
-
-    <!-- بخش ماشین حساب -->
     <div class="calculator">
-        <h1>محاسبه سایز سوتین</h1>
-        <div class="input-group">
-            <label for="underbust">زیر سینه (سانتی‌متر)</label>
-            <input type="number" id="underbust" placeholder="مثال: 90">
+        <h1 style="color: #0066cc;">محاسبه سایز سوتین</h1>
+        <div style="margin: 15px 0;">
+            <label style="display: block; margin-bottom: 5px; color: #555;">زیر سینه (سانتی‌متر)</label>
+            <input type="number" id="underbust" placeholder="مثال: 90" style="width: 80%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
         </div>
-        <div class="input-group">
-            <label for="bust">دور سینه (سانتی‌متر)</label>
-            <input type="number" id="bust" placeholder="مثال: 110">
+        <div style="margin: 15px 0;">
+            <label style="display: block; margin-bottom: 5px; color: #555;">دور سینه (سانتی‌متر)</label>
+            <input type="number" id="bust" placeholder="مثال: 110" style="width: 80%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px;">
         </div>
-        <button onclick="calculate()">محاسبه کن</button>
-        <div class="result" id="result">
+        <button onclick="calculate()" style="background: #0066cc; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-size: 16px; transition: background 0.3s;">محاسبه کن</button>
+        <div id="result" style="margin-top: 20px; text-align: right; padding: 15px; background: rgba(255, 255, 255, 0.8); border-radius: 8px; border: 1px solid #f0f0f0;">
             <p>نتایج محاسبه:</p>
             <p id="output1">-</p>
             <p id="output2">-</p>
@@ -158,6 +79,32 @@
     </div>
 
     <script>
+        // ایجاد حباب‌ها
+        function createBubbles() {
+            const bubbleCount = 15;
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                
+                const size = Math.random() * 40 + 20;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.bottom = `-${size}px`;
+                
+                if (Math.random() > 0.7) {
+                    bubble.innerText = "okian.ir";
+                    bubble.style.fontSize = `${size / 5}px`;
+                }
+                
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                
+                document.body.appendChild(bubble);
+            }
+        }
+        
+        // محاسبه سایز
         function calculate() {
             const underbust = parseInt(document.getElementById("underbust").value);
             const bust = parseInt(document.getElementById("bust").value);
@@ -167,17 +114,22 @@
                 return;
             }
 
-            // محاسبات فرضی
-            const result1 = underbust - 5; // نخی/توری ساده
-            const result2 = underbust;      // نخی/توری فنردار
-            const result3 = underbust + 5; // اسفنجی
-            const result4 = underbust + 10; // لیزری/کاپ کوچک
+            const result1 = underbust - 5;
+            const result2 = underbust;
+            const result3 = underbust + 5;
+            const result4 = underbust + 10;
 
             document.getElementById("output1").innerText = `سایز سوتین نخی یا توری ساده: ${result1}`;
             document.getElementById("output2").innerText = `سایز سوتین نخی یا توری فنردار: ${result2}`;
             document.getElementById("output3").innerText = `سایز سوتین اسفنجی: ${result3}`;
             document.getElementById("output4").innerText = `سایز سوتین لیزری یا کاپ کوچک: ${result4}`;
         }
+        
+        // اجرای اولیه
+        document.addEventListener('DOMContentLoaded', () => {
+            createBubbles();
+            setInterval(createBubbles, 5000); // ایجاد حباب‌های جدید هر 5 ثانیه
+        });
     </script>
 </body>
 </html>
